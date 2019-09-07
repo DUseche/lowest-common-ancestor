@@ -1,7 +1,9 @@
 package com.zawsx.tree.domain;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.Objects;
 
 /**
  * Created by David Useche on 27/08/2019.
@@ -11,53 +13,78 @@ import java.util.stream.Collectors;
 public class Node {
 
     /**
+     * Finds the Lowest Common Ancestor for two nodes given an initial node
+     *
+     * @param parent to initiate the evaluation
+     * @param p first node to search
+     * @param q second node to search
+     * @param flag represents if both nodes have been found
+     * @return The Lowest Common Ancestor of Nodes p,q
+     */
+    public static Node lowestCommonAncestor(final Node parent, final Node p, final Node q,
+                                            final Flag flag) {
+        if(Objects.isNull(parent)) return null;
+
+        if(Objects.equals(parent, p)) {
+            flag.findFirst();
+            return parent;
+        }
+        if(Objects.equals(parent, q)) {
+            flag.findSecond();
+            return parent;
+        }
+
+        Node left = lowestCommonAncestor(parent.nodeOne, p, q, flag);
+        Node right = lowestCommonAncestor(parent.nodeTwo, p, q, flag);
+
+        if(Objects.nonNull(left) && Objects.nonNull(right)) return parent;
+
+        return Objects.nonNull(left) ? left : right;
+    }
+
+    /**
      * The value assigned to this node
      */
+    @JsonProperty
     private Integer value;
 
     /**
-     * The children nodes of this node
+     * First node
      */
-    private List<Node> nodes;
+    @JsonProperty
+    private Node nodeOne;
 
     /**
-     * Constructor of the node
+     * Second node
+     */
+    @JsonProperty
+    private Node nodeTwo;
+
+
+    /**
+     * Constructor of the Node
      *
-     * @param value to assign
+     * @param value of the node
+     * @param one node
+     * @param two node
+     */
+    public Node(Integer value, Node one, Node two) {
+        this.value = value;
+        nodeOne = one;
+        nodeTwo = two;
+    }
+
+    /**
+     * Constructor of the Node
+     *
+     * @param value of the node
      */
     public Node(Integer value) {
         this.value = value;
-        nodes = new ArrayList<>();
     }
 
-    /**
-     * Adds a new node to the children nodes
-     *
-     * @param node to add
-     */
-    public void add(Node node) {
-        nodes.add(node);
-    }
-
-    /**
-     * Verifies if two nodes are children of this node
-     *
-     * @param p first node to evaluate
-     * @param q second node to evaluate
-     * @return the children nodes of the node
-     */
-    public Set<Node> parentOf(final Node p, final Node q) {
-        Set<Node> children = new HashSet<>();
-        if(this.equals(p)) children.add(p);
-        if(this.equals(q)) children.add(q);
-
-        children.addAll(nodes
-                .stream()
-                .map(node -> node.parentOf(p, q))
-                .flatMap(Set::stream)
-                .collect(Collectors.toSet()));
-
-        return children;
+    public Integer getValue() {
+        return value;
     }
 
     @Override
