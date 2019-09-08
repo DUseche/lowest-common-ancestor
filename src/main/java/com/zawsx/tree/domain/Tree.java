@@ -1,7 +1,6 @@
 package com.zawsx.tree.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.zawsx.tree.exception.NodeNotFoundException;
 
 /**
@@ -19,6 +18,25 @@ public class Tree {
 
     public Tree(Node initialNode) {
         root = initialNode;
+    }
+
+    public Tree() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Node getRoot() {
+        return root;
+    }
+
+    public void setRoot(Node root) {
+        this.root = root;
     }
 
     /**
