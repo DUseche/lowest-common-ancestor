@@ -13,8 +13,14 @@ import java.util.List;
 @Service
 public class MemoryPersistence implements Persistence{
 
+    /**
+     * Memory save
+     */
     private List<Tree> trees;
 
+    /**
+     * Init the memory persistence
+     */
     public MemoryPersistence() {
         trees = new ArrayList<>();
     }
