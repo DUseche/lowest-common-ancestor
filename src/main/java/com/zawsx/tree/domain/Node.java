@@ -37,7 +37,7 @@ public class Node {
         Node left = lowestCommonAncestor(parent.nodeOne, p, q, flag);
         Node right = lowestCommonAncestor(parent.nodeTwo, p, q, flag);
 
-        if(Objects.nonNull(left) && Objects.nonNull(right)) return parent;
+        if(flag.foundBoth()) return parent;
 
         return Objects.nonNull(left) ? left : right;
     }
