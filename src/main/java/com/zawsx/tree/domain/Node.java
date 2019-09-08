@@ -22,23 +22,28 @@ public class Node {
      */
     public static Node lowestCommonAncestor(final Node parent, final Node p, final Node q,
                                             final Flag flag) {
-        if(Objects.isNull(parent)) return null;
+        Node lowestCommonAncestor = null;
 
-        if(Objects.equals(parent, p)) {
-            flag.findFirst();
-            return parent;
+        if(Objects.nonNull(parent)) {
+            if(Objects.equals(parent, p)) {
+                flag.findFirst();
+                lowestCommonAncestor = parent;
+            }
+            else if(Objects.equals(parent, q)) {
+                flag.findSecond();
+                lowestCommonAncestor = parent;
+            }
+            else {
+                Node left = lowestCommonAncestor(parent.nodeOne, p, q, flag);
+                Node right = lowestCommonAncestor(parent.nodeTwo, p, q, flag);
+
+                if(Objects.nonNull(left) && Objects.nonNull(right)) lowestCommonAncestor = parent;
+
+                if(Objects.isNull(lowestCommonAncestor)) lowestCommonAncestor = Objects.nonNull(left) ? left : right;
+            }
         }
-        if(Objects.equals(parent, q)) {
-            flag.findSecond();
-            return parent;
-        }
 
-        Node left = lowestCommonAncestor(parent.nodeOne, p, q, flag);
-        Node right = lowestCommonAncestor(parent.nodeTwo, p, q, flag);
-
-        if(flag.foundBoth()) return parent;
-
-        return Objects.nonNull(left) ? left : right;
+        return lowestCommonAncestor;
     }
 
     /**

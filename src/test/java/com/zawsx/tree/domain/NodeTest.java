@@ -1,7 +1,5 @@
 package com.zawsx.tree.domain;
 
-import com.zawsx.tree.domain.Flag;
-import com.zawsx.tree.domain.Node;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
