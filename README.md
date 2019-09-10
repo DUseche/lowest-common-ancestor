@@ -11,7 +11,7 @@ Build a REST server that receives a Tree and two nodes, then return the LCA.
 - Build the controller model, a health controller and the REST Tree controller.
 
 ## How to run
-This is a Maven project using spring-boot. Use these instructions to run the server
+This is a Maven project using spring-boot. It is required to have installed Java 8 JDK to compile and run the project. Use these instructions to run the server
 
 * Linux: ```./mvnw clean compile spring-boot:run```
 * Windows: ```.\mvnw clean compile spring-boot:run```
