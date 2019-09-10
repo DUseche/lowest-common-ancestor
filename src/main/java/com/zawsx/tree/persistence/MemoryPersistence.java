@@ -2,7 +2,7 @@ package com.zawsx.tree.persistence;
 
 import com.zawsx.tree.domain.Tree;
 import com.zawsx.tree.exception.TreeNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by David Useche on 3/09/2019.
  */
-@Service
+@Component
 public class MemoryPersistence implements Persistence{
 
     /**
